@@ -1,0 +1,19 @@
+const myModule = {
+  utils: {
+    math: {
+      add: (a, b) => a + b,
+      subtract: (a, b) => a - b
+    },
+    string: {
+      toUpperCase: (str) => str.toUpperCase(),
+      toLowerCase: (str) => str.toLowerCase()
+    }
+  },
+  sayHello: (name) => {
+    return `Hello, ${name}!`;
+  }
+};
+
+console.log(myModule.sayHello("Alice"));
+console.log(myModule.utils.math.add(2, 3));
+console.log(myModule.utils.string.toUpperCase("hi"));
