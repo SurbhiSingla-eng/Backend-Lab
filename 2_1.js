@@ -1,34 +1,15 @@
-// index.js
-
-// 1. Import the Express framework
 const express = require('express');
-
-// 2. Create an instance of the Express application
 const app = express();
-
-// 3. Define the port.
-// Online compilers use a variable called process.env.PORT.
-// This line uses that port if it exists, otherwise it defaults to 3000.
 const port = process.env.PORT || 3000;
-
-// 4. Middleware to let our app understand JSON data.
 app.use(express.json());
-
-// 5. Create our in-memory "database"
 let todos = [
     { id: 1, task: 'Wake up', completed: true },
     { id: 2, task: 'Learn backend development', completed: false },
     { id: 3, task: 'Build a REST API', completed: false }
 ];
-
-// --- API ROUTES (Endpoints) ---
-
-// READ: Get all to-do items
 app.get('/todos', (req, res) => {
     res.json(todos);
 });
-
-// READ: Get a single to-do item by its ID
 app.get('/todos/:id', (req, res) => {
     const todoId = parseInt(req.params.id, 10);
     const todo = todos.find(t => t.id === todoId);
@@ -39,8 +20,6 @@ app.get('/todos/:id', (req, res) => {
         res.status(404).json({ message: 'To-do item not found' });
     }
 });
-
-// CREATE: Add a new to-do item
 app.post('/todos', (req, res) => {
     const newTodo = {
         id: todos.length > 0 ? Math.max(...todos.map(t => t.id)) + 1 : 1,
@@ -55,8 +34,6 @@ app.post('/todos', (req, res) => {
     todos.push(newTodo);
     res.status(201).json(newTodo);
 });
-
-// UPDATE: Modify an existing to-do item
 app.put('/todos/:id', (req, res) => {
     const todoId = parseInt(req.params.id, 10);
     const todo = todos.find(t => t.id === todoId);
@@ -69,8 +46,6 @@ app.put('/todos/:id', (req, res) => {
         res.status(404).json({ message: 'To-do item not found' });
     }
 });
-
-// DELETE: Remove a to-do item
 app.delete('/todos/:id', (req, res) => {
     const todoId = parseInt(req.params.id, 10);
     const todoIndex = todos.findIndex(t => t.id === todoId);
@@ -82,8 +57,6 @@ app.delete('/todos/:id', (req, res) => {
         res.status(404).json({ message: 'To-do item not found' });
     }
 });
-
-// 6. Start the server
 app.listen(port, () => {
-    console.log(`🚀 Server is running!`);
+    console.log(`Server is running!`);
 });
